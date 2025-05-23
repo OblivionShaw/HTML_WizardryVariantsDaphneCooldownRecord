@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<title>冷卻時間記錄測試（深色主題＋顏色提示）</title>
+<style>
+  body {
+    background-color: #121212;
+    color: white;
+    font-family: Arial, sans-serif;
+  }
+  h1 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+  }
+  h2.table-title {
+    text-align: center;
+    font-size: 1.5em;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+  }
+  .action-btns {
+    text-align: center;
+    margin: 15px 0 0 0;
+  }
+  .action-btns button {
+    margin: 0 10px;
+    padding: 7px 20px;
+    font-size: 1em;
+    background: #444;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .action-btns button:hover {
+    background: #666;
+  }
+  table {
+    border-collapse: collapse;
+    width: 90%;
+    margin: 20px auto;
+    background-color: #222;
+    color: white;
+  }
+  th, td {
+    border: 1px solid #555;
+    padding: 8px 12px;
+    text-align: center;
+  }
+  th {
+    background-color: #333;
+  }
+  td[contenteditable="true"] {
+    background-color: #2c2c2c;
+    color: white;
+  }
+  button.recordBtn {
+    padding: 4px 8px;
+    background-color: #444;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  button.recordBtn:hover {
+    background-color: #666;
+  }
+  .green-text {
+    color: #00ff00 !important;
+    font-weight: bold;
+  }
+  .red-text {
+    color: #ff4444 !important;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<h1>Wizardry Variants Daphne</h1>
+<h2 class="table-title">第一章</h2>
+
+<div class="action-btns">
+  <button id="exportBtn">匯出存檔</button>
+  <button id="importBtn">匯入還原</button>
+  <input type="file" id="fileInput" accept="application/json" style="display:none;">
+</div>
+
+<table id="cooldownTable">
+  <thead>
+    <tr>
+      <th>名稱</th>
+      <th>位置</th>
+      <th>冷卻天數</th>
+      <th>記錄</th>
+      <th>記錄日期</th>
+      <th>重置日期</th>
+    </tr>
+  </thead>
+<tbody>
+  <tr>
+    <td contenteditable="true">測試任務A</td>
+    <td contenteditable="true">位置1</td>
+    <td contenteditable="true">25</td>
+    <td><button class="recordBtn">記錄</button></td>
+    <td class="recordDate"></td>
+    <td class="resetDate"></td>
+  </tr>
+  <tr>
+    <td contenteditable="true">測試任務B</td>
+    <td contenteditable="true">位置2</td>
+    <td contenteditable="true">10</td>
+    <td><button class="recordBtn">記錄</button></td>
+    <td class="recordDate"></td>
+    <td class="resetDate"></td>
+  </tr>
+  <tr>
+    <td contenteditable="true">測試任務C</td>
+    <td contenteditable="true">位置3</td>
+    <td contenteditable="true">1</td>
+    <td><button class="recordBtn">記錄</button></td>
+    <td class="recordDate"></td>
+    <td class="resetDate"></td>
+  </tr>
+  <tr>
+    <td contenteditable="true">測試任務D</td>
+    <td contenteditable="true">位置4</td>
+    <td contenteditable="true">0</td>
+    <td><button class="recordBtn">記錄</button></td>
+    <td class="recordDate"></td>
+    <td class="resetDate"></td>
+  </tr>
+</tbody>
+</table>
+
+<script>
+  const table = document.getElementById('cooldownTable');
+  const storageKey = 'cooldownData';
+
+  // 轉換日期為 yyyy-MM-dd HH:mm:ss 格式
+  function formatDate(date) {
+    const pad = n => n.toString().padStart(2, '0');
+    return date.getFullYear() + '-' +
+      pad(date.getMonth() + 1) + '-' +
+      pad(date.getDate()) + ' ' +
+      pad(date.getHours()) + ':' +
+      pad(date.getMinutes()) + ':' +
+      pad(date.getSeconds());
+  }
+
+  function updateResetDateColor(resetDateCell) {
+    const now = new Date();
+    const resetText = resetDateCell.textContent.trim();
+    resetDateCell.classList.remove('green-text', 'red-text');
+    if (!resetText) return;
+    const resetDate = new Date(resetText.replace(' ', 'T'));
+    if (isNaN(resetDate)) return;
+    const diffMs = resetDate - now;
+    const diffHours = diffMs / (1000 * 60 * 60);
+    if (diffMs <= 0) {
+      resetDateCell.classList.add('red-text');
+    } else if (diffHours <= 72) {
+      resetDateCell.classList.add('green-text');
+    }
+  }
+
+  function getTableData() {
+    const rows = table.querySelectorAll('tbody tr');
+    const data = [];
+    rows.forEach(row => {
+      data.push({
+        name: row.cells[0].textContent.trim(),
+        location: row.cells[1].textContent.trim(),
+        cdDays: row.cells[2].textContent.trim(),
+        recordDate: row.querySelector('.recordDate').textContent.trim(),
+        resetDate: row.querySelector('.resetDate').textContent.trim()
+      });
+    });
+    return data;
+  }
+
+  function setTableData(data) {
+    const rows = table.querySelectorAll('tbody tr');
+    rows.forEach((row, i) => {
+      if (!data[i]) return;
+      row.cells[0].textContent = data[i].name || row.cells[0].textContent;
+      row.cells[1].textContent = data[i].location || row.cells[1].textContent;
+      row.cells[2].textContent = data[i].cdDays || row.cells[2].textContent;
+      row.querySelector('.recordDate').textContent = data[i].recordDate || '';
+      row.querySelector('.resetDate').textContent = data[i].resetDate || '';
+      updateResetDateColor(row.querySelector('.resetDate'));
+    });
+  }
+
+  function loadData() {
+    const dataJson = localStorage.getItem(storageKey);
+    if (!dataJson) return;
+    const data = JSON.parse(dataJson);
+    setTableData(data);
+  }
+
+  function saveData() {
+    localStorage.setItem(storageKey, JSON.stringify(getTableData()));
+  }
+
+  // 按下記錄自動保存
+  document.querySelectorAll('.recordBtn').forEach(button => {
+    button.addEventListener('click', () => {
+      const row = button.closest('tr');
+      const now = new Date();
+      const recordDateCell = row.querySelector('.recordDate');
+      recordDateCell.textContent = formatDate(now);
+
+      const cdDays = parseInt(row.cells[2].textContent, 10);
+      if (isNaN(cdDays)) {
+        alert('冷卻天數不是有效數字！');
+        return;
+      }
+
+      const resetDate = new Date(now);
+      resetDate.setDate(resetDate.getDate() + cdDays);
+
+      const resetDateCell = row.querySelector('.resetDate');
+      resetDateCell.textContent = formatDate(resetDate);
+
+      updateResetDateColor(resetDateCell);
+      saveData();
+    });
+  });
+
+  // 載入時自動還原，並所有 resetDate 欄位都刷新顏色
+  window.addEventListener('load', () => {
+    loadData();
+    table.querySelectorAll('.resetDate').forEach(td => updateResetDateColor(td));
+  });
+
+  // 編輯內容時也自動更新顏色與保存
+  table.addEventListener('input', function(e) {
+    const row = e.target.closest('tr');
+    if (row) {
+      const resetDateCell = row.querySelector('.resetDate');
+      updateResetDateColor(resetDateCell);
+      saveData();
+    }
+  });
+
+  // 匯出功能
+  document.getElementById('exportBtn').addEventListener('click', () => {
+    const data = getTableData();
+    const json = JSON.stringify(data, null, 2);
+    const blob = new Blob([json], {type: "application/json"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const now = new Date();
+    a.href = url;
+    a.download = "wizardry-cooldown-" + formatDate(now).replace(/[: ]/g, "_") + ".json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  // 匯入功能
+  const fileInput = document.getElementById('fileInput');
+  document.getElementById('importBtn').addEventListener('click', () => {
+    fileInput.value = "";
+    fileInput.click();
+  });
+  fileInput.addEventListener('change', function() {
+    if (!fileInput.files.length) return;
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const data = JSON.parse(e.target.result);
+        // 檢查資料結構是否正確
+        if (!Array.isArray(data) || !data.every(
+            d => typeof d === 'object'
+              && "name" in d
+              && "location" in d
+              && "cdDays" in d
+              && "recordDate" in d
+              && "resetDate" in d
+          )) {
+          throw new Error("資料結構不正確");
+        }
+        setTableData(data);
+        saveData();
+        alert("還原成功！");
+      } catch (err) {
+        alert("檔案內容格式錯誤，無法還原！");
+      }
+    };
+    reader.readAsText(file, "utf-8");
+  });
+</script>
+
+</body>
+</html>
