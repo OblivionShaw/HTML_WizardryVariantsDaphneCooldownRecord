@@ -2,8 +2,8 @@
 document.getElementById('app').innerHTML = `
 <h1>Wizardry Variants Daphne</h1>
 <div class="action-btns">
-  <button id="exportBtn">匯出存檔</button>
-  <button id="importBtn">匯入還原</button>
+  <button id="exportBtn">匯出資料</button>
+  <button id="importBtn">匯入資料</button>
   <input type="file" id="fileInput" accept="application/json" style="display:none;">
 </div>
 <h2 class="table-title">共通</h2>
@@ -12,10 +12,10 @@ document.getElementById('app').innerHTML = `
     <tr>
       <th>名稱</th>
       <th>位置</th>
-      <th>重生時間</th>
+      <th>重生天數</th>
       <th>設定時間</th>
       <th>獲得時間</th>
-      <th>重置日期</th>
+      <th>重置時間</th>
     </tr>
   </thead>
   <tbody>
@@ -48,10 +48,10 @@ document.getElementById('app').innerHTML = `
     <tr>
       <th>名稱</th>
       <th>位置</th>
-      <th>重生時間</th>
+      <th>重生天數</th>
       <th>設定時間</th>
       <th>獲得時間</th>
-      <th>重置日期</th>
+      <th>重置時間</th>
     </tr>
   </thead>
   <tbody>
@@ -112,10 +112,10 @@ document.getElementById('app').innerHTML = `
     <tr>
       <th>名稱</th>
       <th>位置</th>
-      <th>重生時間</th>
+      <th>重生天數</th>
       <th>設定時間</th>
       <th>獲得時間</th>
-      <th>重置日期</th>
+      <th>重置時間</th>
     </tr>
   </thead>
   <tbody>
@@ -138,10 +138,10 @@ document.getElementById('app').innerHTML = `
     <tr>
       <th>名稱</th>
       <th>位置</th>
-      <th>重生時間</th>
+      <th>重生天數</th>
       <th>設定時間</th>
       <th>獲得時間</th>
-      <th>重置日期</th>
+      <th>重置時間</th>
     </tr>
   </thead>
   <tbody>
@@ -157,10 +157,10 @@ document.getElementById('app').innerHTML = `
     <tr>
       <th>名稱</th>
       <th>位置</th>
-      <th>重生時間</th>
+      <th>重生天數</th>
       <th>設定時間</th>
       <th>獲得時間</th>
-      <th>重置日期</th>
+      <th>重置時間</th>
     </tr>
   </thead>
   <tbody>
@@ -203,10 +203,10 @@ document.getElementById('app').innerHTML = `
     <tr>
       <th>名稱</th>
       <th>位置</th>
-      <th>重生時間</th>
+      <th>重生天數</th>
       <th>設定時間</th>
       <th>獲得時間</th>
-      <th>重置日期</th>
+      <th>重置時間</th>
     </tr>
   </thead>
   <tbody>
@@ -222,10 +222,10 @@ document.getElementById('app').innerHTML = `
     <tr>
       <th>名稱</th>
       <th>位置</th>
-      <th>重生時間</th>
+      <th>重生天數</th>
       <th>設定時間</th>
       <th>獲得時間</th>
-      <th>重置日期</th>
+      <th>重置時間</th>
     </tr>
   </thead>
   <tbody>
@@ -382,7 +382,7 @@ function setupButtons() {
         const cdText = row.cells[2].textContent.trim();
         const cdDays = parseInt(cdText.match(/\d+/) ? cdText.match(/\d+/)[0] : "0", 10);
         if (isNaN(cdDays)) {
-          alert('重生時間不是有效數字！');
+          alert('重生天數不是有效數字！');
           return;
         }
 
@@ -432,7 +432,7 @@ document.getElementById('modalOkBtn').onclick = function() {
   if (!input.value) return;
   const selected = new Date(input.value);
   if (isNaN(selected)) {
-    alert('日期格式錯誤');
+    alert('時間格式錯誤');
     return;
   }
   const recordDateCell = window.currentRowForDatetime.querySelector('.recordDate');
@@ -440,7 +440,7 @@ document.getElementById('modalOkBtn').onclick = function() {
   const cdText = window.currentRowForDatetime.cells[2].textContent.trim();
   const cdDays = parseInt(cdText.match(/\d+/) ? cdText.match(/\d+/)[0] : "0", 10);
   if (isNaN(cdDays)) {
-    alert('重生時間不是有效數字！');
+    alert('重生天數不是有效數字！');
     return;
   }
   const resetDate = new Date(selected);
@@ -511,7 +511,7 @@ fileInput.addEventListener('change', function() {
   reader.onload = function(e) {
     try {
       const data = JSON.parse(e.target.result);
-      // 只接受動態資料格式（不存名稱/位置/重生時間）
+      // 只接受動態資料格式（不存名稱/位置/重生天數）
       if (!Array.isArray(data) || data.length !== tableIds.length || !data.every(
           arr => Array.isArray(arr) && arr.every(
             d => typeof d === 'object'
