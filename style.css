@@ -158,3 +158,9 @@ table td:nth-child(3) {
   padding-left: 0;
   padding-right: 0;
 }
+.cooldownInput {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
