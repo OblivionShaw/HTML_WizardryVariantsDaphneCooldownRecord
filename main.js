@@ -1,0 +1,533 @@
+// ---- 動態產生所有內容（36列資料，三顆設定時間按鈕風格一致，功能分流正確，存檔只含動態資料） ----
+document.getElementById('app').innerHTML = `
+<h1>Wizardry Variants Daphne</h1>
+<div class="action-btns">
+  <button id="exportBtn">匯出存檔</button>
+  <button id="importBtn">匯入還原</button>
+  <input type="file" id="fileInput" accept="application/json" style="display:none;">
+</div>
+<h2 class="table-title">共通</h2>
+<table id="commonTable">
+  <thead>
+    <tr>
+      <th>名稱</th>
+      <th>位置</th>
+      <th>重生時間</th>
+      <th>設定時間</th>
+      <th>獲得時間</th>
+      <th>重置日期</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>撿骨商人</td><td>隨機</td><td>7</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>打倒敵人箱子</td><td>隨機</td><td>7</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>心器</td><td>心器之淵</td><td>1</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>爐壺</td><td>靈廟</td><td>0</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+  </tbody>
+</table>
+
+<h2 class="table-title">第一章</h2>
+<table id="chapter1TaskTable">
+  <thead>
+    <tr>
+      <th>名稱</th>
+      <th>位置</th>
+      <th>重生時間</th>
+      <th>設定時間</th>
+      <th>獲得時間</th>
+      <th>重置日期</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>甦醒後露露娜蒂骨頭</td><td>甦醒→主線</td><td>30</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>甦醒房間骨頭</td><td>甦醒→甦醒房間</td><td>30</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>1F骨頭</td><td>重新出發→死臭任務→1F</td><td>30</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>3F骨頭</td><td>重新出發→3F哥布林巢穴南</td><td>25</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>3F骨頭</td><td>重新出發→3F哥布林巢穴東北</td><td>25</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>4F骨頭</td><td>重新出發→4F西北</td><td>25</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>5F骨頭</td><td>重新出發→5F五毒沼</td><td>28</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>6F骨頭</td><td>重新出發→6F南</td><td>7</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>7F骨頭</td><td>重新出發→7F泉水東斷崖</td><td>25</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>8F骨頭</td><td>重新出發→滋養藥旁</td><td>25</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+  </tbody>
+</table>
+<table id="chapter1ItemTable">
+  <thead>
+    <tr>
+      <th>名稱</th>
+      <th>位置</th>
+      <th>重生時間</th>
+      <th>設定時間</th>
+      <th>獲得時間</th>
+      <th>重置日期</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>8F滋養藥</td><td>重新出發→8F</td><td>1</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>劍鎬</td><td>重新出發→5F賊沒事→任務酒館→7F東北→回報</td><td>28</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+  </tbody>
+</table>
+
+<h2 class="table-title">第二章</h2>
+<table id="chapter2TaskTable">
+  <thead>
+    <tr>
+      <th>名稱</th>
+      <th>位置</th>
+      <th>重生時間</th>
+      <th>設定時間</th>
+      <th>獲得時間</th>
+      <th>重置日期</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>B7骨頭</td><td>人魚傳說→B7水下</td><td>30</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+  </tbody>
+</table>
+<table id="chapter2ItemTable">
+  <thead>
+    <tr>
+      <th>名稱</th>
+      <th>位置</th>
+      <th>重生時間</th>
+      <th>設定時間</th>
+      <th>獲得時間</th>
+      <th>重置日期</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>身軽なサンダル</td><td>人魚傳說→B3</td><td>30</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>マンイーター</td><td>人魚傳說→B5</td><td>30</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>水神の仮面</td><td>人魚傳說→B6</td><td>30</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>暴虐のカトラス</td><td>競技場5→打贏</td><td>30</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>聖堂加護</td><td>競技場5→教皇線完成</td><td>30</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>靈藥</td><td>歸還王都→船3</td><td>30</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+  </tbody>
+</table>
+
+<h2 class="table-title">第三章</h2>
+<table id="chapter3TaskTable">
+  <thead>
+    <tr>
+      <th>名稱</th>
+      <th>位置</th>
+      <th>重生時間</th>
+      <th>設定時間</th>
+      <th>獲得時間</th>
+      <th>重置日期</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>カタコンベ</td><td>?</td><td>28</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+  </tbody>
+</table>
+<table id="chapter3ItemTable">
+  <thead>
+    <tr>
+      <th>名稱</th>
+      <th>位置</th>
+      <th>重生時間</th>
+      <th>設定時間</th>
+      <th>獲得時間</th>
+      <th>重置日期</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>常世百合</td><td>城塞地下到達→惡靈任務</td><td>30</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>どくろの首飾り</td><td>城塞地下到達→惡靈任務</td><td>30</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>エネミースコープ</td><td>城塞地下到達→任務禁域探索の護衛</td><td>30</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>魔製水晶</td><td>城塞地下到達→同上罪を知っている</td><td>30</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>山羊のマント</td><td>絵画の回廊の小ハーケン（6区B2F）</td><td>30</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>霊薬</td><td>9区</td><td>30</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>騎士のマント</td><td>凱旋→任務</td><td>30</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>金糸刺繍のハンカチーフ</td><td>凱旋→任務</td><td>30</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>忠勇なる盾兵の秘伝書</td><td>主線獎勵</td><td>30</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>聖白の輝石</td><td>主線獎勵</td><td>30</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>エレガントダンサー</td><td>主線獎勵</td><td>30</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>煌めきの指環</td><td>モルグス 討伐報酬</td><td>30</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+  </tbody>
+</table>
+
+<div id="datetimeModal" style="display:none">
+  <div style="text-align:center; margin-bottom:8px;">選擇獲得時間</div>
+  <input type="datetime-local" id="modalDatetimeInput">
+  <div style="margin-top:14px; text-align:center;">
+    <button id="modalOkBtn">確定</button>
+    <button id="modalCancelBtn">取消</button>
+  </div>
+</div>
+`;
+
+const tableIds = [
+  "commonTable",
+  "chapter1TaskTable",
+  "chapter1ItemTable",
+  "chapter2TaskTable",
+  "chapter2ItemTable",
+  "chapter3TaskTable",
+  "chapter3ItemTable"
+];
+const storageKey = 'cooldownData';
+
+// 只存 recordDate/resetDate
+function getTableData() {
+  return tableIds.map(tid => {
+    const rows = document.getElementById(tid).querySelectorAll('tbody tr');
+    return Array.from(rows).map(row => ({
+      recordDate: row.querySelector('.recordDate').textContent.trim(),
+      resetDate: row.querySelector('.resetDate').textContent.trim()
+    }));
+  });
+}
+function setTableData(data) {
+  tableIds.forEach((tid, i) => {
+    const rows = document.getElementById(tid).querySelectorAll('tbody tr');
+    if (!data[i]) return;
+    rows.forEach((row, j) => {
+      if (!data[i][j]) return;
+      row.querySelector('.recordDate').textContent = data[i][j].recordDate || '';
+      row.querySelector('.resetDate').textContent = data[i][j].resetDate || '';
+      updateResetDateColor(row.querySelector('.resetDate'));
+    });
+  });
+}
+
+function formatDate(date) {
+  const pad = n => n.toString().padStart(2, '0');
+  return date.getFullYear() + '-' +
+    pad(date.getMonth() + 1) + '-' +
+    pad(date.getDate()) + ' ' +
+    pad(date.getHours()) + ':' +
+    pad(date.getMinutes()) + ':' +
+    pad(date.getSeconds());
+}
+function updateResetDateColor(resetDateCell) {
+  const now = new Date();
+  const resetText = resetDateCell.textContent.trim();
+  resetDateCell.classList.remove('green-text', 'red-text');
+  if (!resetText) return;
+  const resetDate = new Date(resetText.replace(' ', 'T'));
+  if (isNaN(resetDate)) return;
+  const diffMs = resetDate - now;
+  const diffHours = diffMs / (1000 * 60 * 60);
+  if (diffMs <= 0) {
+    resetDateCell.classList.add('red-text');
+  } else if (diffHours <= 72) {
+    resetDateCell.classList.add('green-text');
+  }
+}
+function loadData() {
+  const dataJson = localStorage.getItem(storageKey);
+  if (!dataJson) return;
+  const data = JSON.parse(dataJson);
+  setTableData(data);
+}
+function saveData() {
+  localStorage.setItem(storageKey, JSON.stringify(getTableData()));
+}
+function setupButtons() {
+  tableIds.forEach(tid => {
+    // 當前
+    document.getElementById(tid).querySelectorAll('.recordBtn:not(.manualBtn):not(.clearBtn)').forEach(button => {
+      button.onclick = function() {
+        const row = button.closest('tr');
+        const now = new Date();
+        const recordDateCell = row.querySelector('.recordDate');
+        recordDateCell.textContent = formatDate(now);
+
+        const cdText = row.cells[2].textContent.trim();
+        const cdDays = parseInt(cdText.match(/\d+/) ? cdText.match(/\d+/)[0] : "0", 10);
+        if (isNaN(cdDays)) {
+          alert('重生時間不是有效數字！');
+          return;
+        }
+
+        const resetDate = new Date(now);
+        resetDate.setDate(resetDate.getDate() + cdDays);
+        const resetDateCell = row.querySelector('.resetDate');
+        resetDateCell.textContent = formatDate(resetDate);
+
+        updateResetDateColor(resetDateCell);
+        saveData();
+      };
+    });
+    // 自選
+    document.getElementById(tid).querySelectorAll('.recordBtn.manualBtn').forEach(button => {
+      button.onclick = function() {
+        window.currentRowForDatetime = button.closest('tr');
+        const modal = document.getElementById('datetimeModal');
+        const input = document.getElementById('modalDatetimeInput');
+        const now = new Date();
+        const pad = n => n.toString().padStart(2, '0');
+        input.value =
+          now.getFullYear() + '-' +
+          pad(now.getMonth() + 1) + '-' +
+          pad(now.getDate()) + 'T' +
+          pad(now.getHours()) + ':' +
+          pad(now.getMinutes());
+        modal.style.display = 'block';
+        input.focus();
+      };
+    });
+    // 清除
+    document.getElementById(tid).querySelectorAll('.recordBtn.clearBtn').forEach(button => {
+      button.onclick = function() {
+        const row = button.closest('tr');
+        row.querySelector('.recordDate').textContent = '';
+        row.querySelector('.resetDate').textContent = '';
+        updateResetDateColor(row.querySelector('.resetDate'));
+        saveData();
+      };
+    });
+  });
+}
+
+document.getElementById('modalOkBtn').onclick = function() {
+  if (!window.currentRowForDatetime) return;
+  const input = document.getElementById('modalDatetimeInput');
+  if (!input.value) return;
+  const selected = new Date(input.value);
+  if (isNaN(selected)) {
+    alert('日期格式錯誤');
+    return;
+  }
+  const recordDateCell = window.currentRowForDatetime.querySelector('.recordDate');
+  recordDateCell.textContent = formatDate(selected);
+  const cdText = window.currentRowForDatetime.cells[2].textContent.trim();
+  const cdDays = parseInt(cdText.match(/\d+/) ? cdText.match(/\d+/)[0] : "0", 10);
+  if (isNaN(cdDays)) {
+    alert('重生時間不是有效數字！');
+    return;
+  }
+  const resetDate = new Date(selected);
+  resetDate.setDate(resetDate.getDate() + cdDays);
+  const resetDateCell = window.currentRowForDatetime.querySelector('.resetDate');
+  resetDateCell.textContent = formatDate(resetDate);
+
+  updateResetDateColor(resetDateCell);
+  saveData();
+  document.getElementById('datetimeModal').style.display = 'none';
+  window.currentRowForDatetime = null;
+};
+document.getElementById('modalCancelBtn').onclick = function() {
+  document.getElementById('datetimeModal').style.display = 'none';
+  window.currentRowForDatetime = null;
+};
+window.addEventListener('mousedown', function(e){
+  const modal = document.getElementById('datetimeModal');
+  if(modal.style.display==="block" && !modal.contains(e.target)){
+    modal.style.display = "none";
+    window.currentRowForDatetime = null;
+  }
+});
+
+window.addEventListener('load', () => {
+  loadData();
+  setupButtons();
+  tableIds.forEach(tid => {
+    document.getElementById(tid).querySelectorAll('.resetDate').forEach(td => updateResetDateColor(td));
+  });
+});
+
+tableIds.forEach(tid => {
+  document.getElementById(tid).addEventListener('input', function(e) {
+    const row = e.target.closest('tr');
+    if (row) {
+      const resetDateCell = row.querySelector('.resetDate');
+      updateResetDateColor(resetDateCell);
+      saveData();
+    }
+  });
+});
+
+document.getElementById('exportBtn').addEventListener('click', () => {
+  const data = getTableData();
+  const json = JSON.stringify(data, null, 2);
+  const blob = new Blob([json], {type: "application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const now = new Date();
+  a.href = url;
+  a.download = "wizardry-cooldown-" + formatDate(now).replace(/[: ]/g, "_") + ".json";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+});
+
+const fileInput = document.getElementById('fileInput');
+document.getElementById('importBtn').addEventListener('click', () => {
+  fileInput.value = "";
+  fileInput.click();
+});
+fileInput.addEventListener('change', function() {
+  if (!fileInput.files.length) return;
+  const file = fileInput.files[0];
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = JSON.parse(e.target.result);
+      // 只接受動態資料格式（不存名稱/位置/重生時間）
+      if (!Array.isArray(data) || data.length !== tableIds.length || !data.every(
+          arr => Array.isArray(arr) && arr.every(
+            d => typeof d === 'object'
+              && "recordDate" in d
+              && "resetDate" in d
+          )
+        )) {
+        throw new Error("資料結構不正確");
+      }
+      setTableData(data);
+      saveData();
+      setupButtons();
+      alert("還原成功！");
+    } catch (err) {
+      alert("檔案內容格式錯誤，無法還原！");
+    }
+  };
+  reader.readAsText(file, "utf-8");
+});
