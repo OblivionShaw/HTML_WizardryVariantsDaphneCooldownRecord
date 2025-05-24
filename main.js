@@ -1,4 +1,3 @@
-// ---- 動態產生所有內容（36列資料，三顆設定時間按鈕風格一致，功能分流正確，存檔只含動態資料） ----
 document.getElementById('app').innerHTML = `
 <h1>Wizardry Variants Daphne</h1>
 <div class="action-btns">
@@ -34,11 +33,18 @@ document.getElementById('app').innerHTML = `
       <button class="recordBtn manualBtn">自選</button>
       <button class="recordBtn clearBtn">清除</button>
     </td><td class="recordDate"></td><td class="resetDate"></td></tr>
-    <tr><td>爐壺</td><td>靈廟</td><td>0</td><td>
-      <button class="recordBtn">當前</button>
-      <button class="recordBtn manualBtn">自選</button>
-      <button class="recordBtn clearBtn">清除</button>
-    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>爐壺</td><td>靈廟</td>
+      <td>
+        <input class="cooldownInput" type="number" min="0" value="0" style="width:50px">
+      </td>
+      <td>
+        <button class="recordBtn">當前</button>
+        <button class="recordBtn manualBtn">自選</button>
+        <button class="recordBtn clearBtn">清除</button>
+      </td>
+      <td class="recordDate"></td>
+      <td class="resetDate"></td>
+    </tr>
   </tbody>
 </table>
 
@@ -313,14 +319,30 @@ const tableIds = [
 ];
 const storageKey = 'cooldownData';
 
-// 只存 recordDate/resetDate
+// 取得 cooldown days
+function getCooldownDays(row) {
+  // 只有共通表格第4行(爐壺)
+  if (
+    row.cells[0].textContent.trim() === "爐壺" &&
+    row.cells[2].querySelector('.cooldownInput')
+  ) {
+    return parseInt(row.cells[2].querySelector('.cooldownInput').value, 10) || 0;
+  }
+  return parseInt(row.cells[2].textContent.trim(), 10) || 0;
+}
+
+// 只存 recordDate/resetDate (爐壺多 cooldownDays)
 function getTableData() {
   return tableIds.map(tid => {
     const rows = document.getElementById(tid).querySelectorAll('tbody tr');
-    return Array.from(rows).map(row => ({
-      recordDate: row.querySelector('.recordDate').textContent.trim(),
-      resetDate: row.querySelector('.resetDate').textContent.trim()
-    }));
+    return Array.from(rows).map(row => {
+      const isLuHu = row.cells[0].textContent.trim() === "爐壺";
+      return {
+        recordDate: row.querySelector('.recordDate').textContent.trim(),
+        resetDate: row.querySelector('.resetDate').textContent.trim(),
+        ...(isLuHu ? { cooldownDays: row.cells[2].querySelector('.cooldownInput').value } : {})
+      };
+    });
   });
 }
 function setTableData(data) {
@@ -331,6 +353,14 @@ function setTableData(data) {
       if (!data[i][j]) return;
       row.querySelector('.recordDate').textContent = data[i][j].recordDate || '';
       row.querySelector('.resetDate').textContent = data[i][j].resetDate || '';
+      // 只有爐壺有 cooldownInput
+      if (
+        row.cells[0].textContent.trim() === "爐壺" &&
+        row.cells[2].querySelector('.cooldownInput') &&
+        "cooldownDays" in data[i][j]
+      ) {
+        row.cells[2].querySelector('.cooldownInput').value = data[i][j].cooldownDays;
+      }
       updateResetDateColor(row.querySelector('.resetDate'));
     });
   });
@@ -379,8 +409,7 @@ function setupButtons() {
         const recordDateCell = row.querySelector('.recordDate');
         recordDateCell.textContent = formatDate(now);
 
-        const cdText = row.cells[2].textContent.trim();
-        const cdDays = parseInt(cdText.match(/\d+/) ? cdText.match(/\d+/)[0] : "0", 10);
+        const cdDays = getCooldownDays(row);
         if (isNaN(cdDays)) {
           alert('重生天數不是有效數字！');
           return;
@@ -423,6 +452,12 @@ function setupButtons() {
         saveData();
       };
     });
+    // 爐壺 cooldown input 變更時即時存檔
+    if (tid === "commonTable") {
+      document.querySelectorAll('#commonTable .cooldownInput').forEach(input => {
+        input.addEventListener('input', saveData);
+      });
+    }
   });
 }
 
@@ -437,8 +472,8 @@ document.getElementById('modalOkBtn').onclick = function() {
   }
   const recordDateCell = window.currentRowForDatetime.querySelector('.recordDate');
   recordDateCell.textContent = formatDate(selected);
-  const cdText = window.currentRowForDatetime.cells[2].textContent.trim();
-  const cdDays = parseInt(cdText.match(/\d+/) ? cdText.match(/\d+/)[0] : "0", 10);
+
+  const cdDays = getCooldownDays(window.currentRowForDatetime);
   if (isNaN(cdDays)) {
     alert('重生天數不是有效數字！');
     return;
@@ -531,3 +566,9 @@ fileInput.addEventListener('change', function() {
   };
   reader.readAsText(file, "utf-8");
 });
+// ====== 每60秒自動刷新所有重置時間的顏色 ======
+setInterval(() => {
+  tableIds.forEach(tid => {
+    document.getElementById(tid).querySelectorAll('.resetDate').forEach(td => updateResetDateColor(td));
+  });
+}, 60000); // 每60秒刷新一次顏色
