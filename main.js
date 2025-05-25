@@ -23,11 +23,15 @@ document.getElementById('app').innerHTML = `
       <button class="recordBtn manualBtn">自選</button>
       <button class="recordBtn clearBtn">清除</button>
     </td><td class="recordDate"></td><td class="resetDate"></td></tr>
-    <tr><td>打倒敵人箱子</td><td>隨機</td><td>7</td><td>
-      <button class="recordBtn">當前</button>
-      <button class="recordBtn manualBtn">自選</button>
-      <button class="recordBtn clearBtn">清除</button>
-    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>打倒敵人箱子</td><td>隨機</td>
+  <td><input class="cooldownInput" type="number" min="0" value="7" style="width:50px"></td><td>
+    <button class="recordBtn">當前</button>
+    <button class="recordBtn manualBtn">自選</button>
+    <button class="recordBtn clearBtn">清除</button>
+  </td>
+  <td class="recordDate"></td>
+  <td class="resetDate"></td>
+</tr>
     <tr><td>心器</td><td>心器之淵</td><td>1</td><td>
       <button class="recordBtn">當前</button>
       <button class="recordBtn manualBtn">自選</button>
@@ -321,9 +325,10 @@ const storageKey = 'cooldownData';
 
 // 取得 cooldown days
 function getCooldownDays(row) {
-  // 只有共通表格第4行(爐壺)
+  // 支援爐壺與打倒敵人箱子
   if (
-    row.cells[0].textContent.trim() === "爐壺" &&
+    (row.cells[0].textContent.trim() === "爐壺" ||
+     row.cells[0].textContent.trim() === "打倒敵人箱子") &&
     row.cells[2].querySelector('.cooldownInput')
   ) {
     return parseInt(row.cells[2].querySelector('.cooldownInput').value, 10) || 0;
@@ -336,11 +341,12 @@ function getTableData() {
   return tableIds.map(tid => {
     const rows = document.getElementById(tid).querySelectorAll('tbody tr');
     return Array.from(rows).map(row => {
-      const isLuHu = row.cells[0].textContent.trim() === "爐壺";
+      const name = row.cells[0].textContent.trim();
+      const isCooldownInput = (name === "爐壺" || name === "打倒敵人箱子");
       return {
         recordDate: row.querySelector('.recordDate').textContent.trim(),
         resetDate: row.querySelector('.resetDate').textContent.trim(),
-        ...(isLuHu ? { cooldownDays: row.cells[2].querySelector('.cooldownInput').value } : {})
+        ...(isCooldownInput ? { cooldownDays: row.cells[2].querySelector('.cooldownInput').value } : {})
       };
     });
   });
@@ -353,9 +359,10 @@ function setTableData(data) {
       if (!data[i][j]) return;
       row.querySelector('.recordDate').textContent = data[i][j].recordDate || '';
       row.querySelector('.resetDate').textContent = data[i][j].resetDate || '';
-      // 只有爐壺有 cooldownInput
+      // 爐壺或打倒敵人箱子有 cooldownInput
       if (
-        row.cells[0].textContent.trim() === "爐壺" &&
+        (row.cells[0].textContent.trim() === "爐壺" ||
+         row.cells[0].textContent.trim() === "打倒敵人箱子") &&
         row.cells[2].querySelector('.cooldownInput') &&
         "cooldownDays" in data[i][j]
       ) {
@@ -455,6 +462,8 @@ function setupButtons() {
     // 爐壺 cooldown input 變更時即時存檔
     if (tid === "commonTable") {
       document.querySelectorAll('#commonTable .cooldownInput').forEach(input => {
+        // 先移除舊的監聽，避免重複
+        input.removeEventListener('input', saveData);
         input.addEventListener('input', saveData);
       });
     }
