@@ -105,7 +105,7 @@ document.getElementById('app').innerHTML = `
       <button class="recordBtn manualBtn">自選</button>
       <button class="recordBtn clearBtn">清除</button>
     </td><td class="recordDate"></td><td class="resetDate"></td></tr>
-    <tr><td>7F骨頭</td><td>重新出發→7F泉水東斷崖</td><td>25</td><td>
+    <tr><td>7F骨頭</td><td>重新出發→7F泉水東斷崖下寶箱</td><td>25</td><td>
       <button class="recordBtn">當前</button>
       <button class="recordBtn manualBtn">自選</button>
       <button class="recordBtn clearBtn">清除</button>
