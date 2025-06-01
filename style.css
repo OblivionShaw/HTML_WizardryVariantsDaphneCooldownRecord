@@ -164,3 +164,18 @@ table td:nth-child(3) {
   margin-right: auto;
   display: block;
 }
+.action-btns .action-btn {
+  margin: 0 10px;
+  padding: 7px 20px;
+  font-size: 1em;
+  background: #444;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+.action-btns .action-btn:hover {
+  background: #666;
+}

@@ -4,6 +4,8 @@ document.getElementById('app').innerHTML = `
   <button id="exportBtn">匯出資料</button>
   <button id="importBtn">匯入資料</button>
   <input type="file" id="fileInput" accept="application/json" style="display:none;">
+<div style="margin-top:8px;">
+  <a id="weeklyGreenStoneBtn" href="https://store.wizardry.info/ja-JP" target="_blank" class="action-btn">每周綠石</a>
 </div>
 <h2 class="table-title">共通</h2>
 <table id="commonTable">
