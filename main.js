@@ -1,5 +1,5 @@
 document.getElementById('app').innerHTML = `
-<h1>Wizardry Variants Daphne</h1>
+<h1>ウィザードリィ ダフネ 辟邪除妖 Wizardry Variants Daphne</h1>
 <div class="action-btns">
   <button id="exportBtn">匯出資料</button>
   <button id="importBtn">匯入資料</button>
@@ -176,7 +176,12 @@ document.getElementById('app').innerHTML = `
     </tr>
   </thead>
   <tbody>
-    <tr><td>身軽なサンダル</td><td>人魚傳說→B3</td><td>30</td><td>
+    <tr><td>2F滋養藥</td><td>人魚傳說→B2右下水龍頭水阻擋房間</td><td>30</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>身輕涼鞋</td><td>人魚傳說→B3右下機關房開關對面</td><td>14</td><td>
       <button class="recordBtn">當前</button>
       <button class="recordBtn manualBtn">自選</button>
       <button class="recordBtn clearBtn">清除</button>
@@ -312,7 +317,14 @@ document.getElementById('app').innerHTML = `
     <button id="modalCancelBtn">取消</button>
   </div>
 </div>
-`;
+<a href="https://wizardry-daphne.mcwild.net/item-log/" target="_blank">リポップ管理</a>
+<br>
+<a href="https://gamerch.com/wizardry-daphne/896951" target="_blank">【ウィズダフネ】遺骸や宝箱が復活する場所まとめ【ウィザードリィダフネ】</a>
+<br>
+<a href="https://wikiwiki.jp/wiz_daphne/%E5%86%8D%E5%85%A5%E6%89%8B%E5%8F%AF%E8%83%BD%E3%81%AA%E3%82%A2%E3%82%A4%E3%83%86%E3%83%A0%E4%B8%80%E8%A6%A7" target="_blank">再入手可能なアイテム一覧</a>
+`
+;
+
 
 const tableIds = [
   "commonTable",
