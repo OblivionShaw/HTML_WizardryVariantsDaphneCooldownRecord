@@ -157,7 +157,7 @@ document.getElementById('app').innerHTML = `
     </tr>
   </thead>
   <tbody>
-    <tr><td>B7骨頭</td><td>人魚傳說→B7水下</td><td>30</td><td>
+    <tr><td>水7骨頭</td><td>人魚傳說→水7水下</td><td>30</td><td>
       <button class="recordBtn">當前</button>
       <button class="recordBtn manualBtn">自選</button>
       <button class="recordBtn clearBtn">清除</button>
@@ -176,22 +176,32 @@ document.getElementById('app').innerHTML = `
     </tr>
   </thead>
   <tbody>
-    <tr><td>2F滋養藥</td><td>人魚傳說→B2右下水龍頭水阻擋房間</td><td>30</td><td>
+    <tr><td>水1靈藥</td><td>人魚傳說→水1隨機X7Y13/X5Y25/X10Y22/更多可能?</td><td>30</td><td>
       <button class="recordBtn">當前</button>
       <button class="recordBtn manualBtn">自選</button>
       <button class="recordBtn clearBtn">清除</button>
     </td><td class="recordDate"></td><td class="resetDate"></td></tr>
-    <tr><td>身輕涼鞋</td><td>人魚傳說→B3右下機關房開關對面</td><td>14</td><td>
+    <tr><td>水2滋養藥</td><td>人魚傳說→水2右下水龍頭水阻擋房間X21/Y10</td><td>30</td><td>
       <button class="recordBtn">當前</button>
       <button class="recordBtn manualBtn">自選</button>
       <button class="recordBtn clearBtn">清除</button>
     </td><td class="recordDate"></td><td class="resetDate"></td></tr>
-    <tr><td>マンイーター</td><td>人魚傳說→B5</td><td>30</td><td>
+    <tr><td>身輕涼鞋</td><td>人魚傳說→水3右下機關房開關對面X17/Y01</td><td>30</td><td>
       <button class="recordBtn">當前</button>
       <button class="recordBtn manualBtn">自選</button>
       <button class="recordBtn clearBtn">清除</button>
     </td><td class="recordDate"></td><td class="resetDate"></td></tr>
-    <tr><td>水神の仮面</td><td>人魚傳說→B6</td><td>30</td><td>
+     <tr><td>盜賊手套</td><td>人魚傳說→水4右上角水流房間 X26/Y20</td><td>30</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>食人劍</td><td>人魚傳說→水5 X14/Y11</td><td>30</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>水神面具</td><td>人魚傳說→水6 X07/Y22</td><td>30</td><td>
       <button class="recordBtn">當前</button>
       <button class="recordBtn manualBtn">自選</button>
       <button class="recordBtn clearBtn">清除</button>
@@ -206,7 +216,7 @@ document.getElementById('app').innerHTML = `
       <button class="recordBtn manualBtn">自選</button>
       <button class="recordBtn clearBtn">清除</button>
     </td><td class="recordDate"></td><td class="resetDate"></td></tr>
-    <tr><td>靈藥</td><td>歸還王都→船3</td><td>30</td><td>
+    <tr><td>船3靈藥</td><td>人魚傳說/歸還王都→船3鑰匙房</td><td>30</td><td>
       <button class="recordBtn">當前</button>
       <button class="recordBtn manualBtn">自選</button>
       <button class="recordBtn clearBtn">清除</button>
