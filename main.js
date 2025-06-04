@@ -206,7 +206,7 @@ document.getElementById('app').innerHTML = `
       <button class="recordBtn manualBtn">自選</button>
       <button class="recordBtn clearBtn">清除</button>
     </td><td class="recordDate"></td><td class="resetDate"></td></tr>
-    <tr><td>暴虐のカトラス</td><td>競技場5→打贏</td><td>30</td><td>
+    <tr><td>暴虐彎刀</td><td>競技場5→選愛刀(需先真結局)</td><td>30</td><td>
       <button class="recordBtn">當前</button>
       <button class="recordBtn manualBtn">自選</button>
       <button class="recordBtn clearBtn">清除</button>
@@ -221,7 +221,7 @@ document.getElementById('app').innerHTML = `
       <button class="recordBtn manualBtn">自選</button>
       <button class="recordBtn clearBtn">清除</button>
     </td><td class="recordDate"></td><td class="resetDate"></td></tr>
-     <tr><td>海神珠</td><td>王督→阿瓦雷舉辦鬥技大會3波勝利</td><td>30</td><td>
+     <tr><td>海神珠</td><td>歸還王都→阿瓦雷舉辦鬥技大會3波勝利</td><td>30</td><td>
       <button class="recordBtn">當前</button>
       <button class="recordBtn manualBtn">自選</button>
       <button class="recordBtn clearBtn">清除</button>
