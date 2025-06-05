@@ -337,6 +337,9 @@ document.getElementById('app').innerHTML = `
 <a href="https://gamerch.com/wizardry-daphne/896951" target="_blank">【ウィズダフネ】遺骸や宝箱が復活する場所まとめ【ウィザードリィダフネ】</a>
 <br>
 <a href="https://wikiwiki.jp/wiz_daphne/%E5%86%8D%E5%85%A5%E6%89%8B%E5%8F%AF%E8%83%BD%E3%81%AA%E3%82%A2%E3%82%A4%E3%83%86%E3%83%A0%E4%B8%80%E8%A6%A7" target="_blank">再入手可能なアイテム一覧</a>
+<br>
+<a href="https://wikiwiki.jp/wiz_daphne/%E7%B8%81%E6%B7%B1%E3%81%8D%E8%80%85" target="_blank">縁深き者</a>
+
 `
 ;
 
