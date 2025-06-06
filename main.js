@@ -321,6 +321,21 @@ document.getElementById('app').innerHTML = `
       <button class="recordBtn manualBtn">自選</button>
       <button class="recordBtn clearBtn">清除</button>
     </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>2區滋養藥</td><td>2區未確認</td><td>1</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>8區固定箱</td><td>8區固定箱</td><td>1</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>9區固定箱</td><td>9區固定箱</td><td>1</td><td>
+      <button class="recordBtn">當前</button>
+      <button class="recordBtn manualBtn">自選</button>
+      <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
   </tbody>
 </table>
 
