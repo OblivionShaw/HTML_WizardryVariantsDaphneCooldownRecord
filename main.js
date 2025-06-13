@@ -72,12 +72,12 @@ document.getElementById('app').innerHTML = `
       <button class="recordBtn manualBtn">自選</button>
       <button class="recordBtn clearBtn">清除</button>
     </td><td class="recordDate"></td><td class="resetDate"></td></tr>
-    <tr><td>甦醒房間骨頭</td><td>甦醒→甦醒房間</td><td>30</td><td>
+    <tr><td>甦醒房間骨頭</td><td>甦醒/重新出發→1F甦醒房間</td><td>30</td><td>
       <button class="recordBtn">當前</button>
       <button class="recordBtn manualBtn">自選</button>
       <button class="recordBtn clearBtn">清除</button>
     </td><td class="recordDate"></td><td class="resetDate"></td></tr>
-    <tr><td>1F骨頭</td><td>重新出發→死臭任務→1F</td><td>30</td><td>
+    <tr><td>1F骨頭</td><td>重新出發→死臭任務→1F(任務消失重新出發摸1F哈肯)</td><td>30</td><td>
       <button class="recordBtn">當前</button>
       <button class="recordBtn manualBtn">自選</button>
       <button class="recordBtn clearBtn">清除</button>
