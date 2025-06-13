@@ -72,7 +72,7 @@ document.getElementById('app').innerHTML = `
       <button class="recordBtn manualBtn">自選</button>
       <button class="recordBtn clearBtn">清除</button>
     </td><td class="recordDate"></td><td class="resetDate"></td></tr>
-    <tr><td>甦醒房間骨頭</td><td>甦醒/重新出發→1F甦醒房間</td><td>30</td><td>
+    <tr><td>甦醒房間骨頭</td><td>甦醒/重新出發→1F甦醒房間(重新出發必須直接過去不可跳更後面)</td><td>30</td><td>
       <button class="recordBtn">當前</button>
       <button class="recordBtn manualBtn">自選</button>
       <button class="recordBtn clearBtn">清除</button>
@@ -87,7 +87,7 @@ document.getElementById('app').innerHTML = `
       <button class="recordBtn manualBtn">自選</button>
       <button class="recordBtn clearBtn">清除</button>
     </td><td class="recordDate"></td><td class="resetDate"></td></tr>
-    <tr><td>3F骨頭</td><td>重新出發→3F哥布林巢穴東北</td><td>25</td><td>
+    <tr><td>3F骨頭</td><td>重新出發→3F哥布林巢穴東北</td><td>28</td><td>
       <button class="recordBtn">當前</button>
       <button class="recordBtn manualBtn">自選</button>
       <button class="recordBtn clearBtn">清除</button>
@@ -112,7 +112,7 @@ document.getElementById('app').innerHTML = `
       <button class="recordBtn manualBtn">自選</button>
       <button class="recordBtn clearBtn">清除</button>
     </td><td class="recordDate"></td><td class="resetDate"></td></tr>
-    <tr><td>8F骨頭</td><td>重新出發→滋養藥旁</td><td>25</td><td>
+    <tr><td>8F骨頭</td><td>重新出發→滋養藥旁</td><td>28</td><td>
       <button class="recordBtn">當前</button>
       <button class="recordBtn manualBtn">自選</button>
       <button class="recordBtn clearBtn">清除</button>
