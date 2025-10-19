@@ -56,6 +56,11 @@ document.getElementById('app').innerHTML = `
     <button class="recordBtn manualBtn">自選</button>
     <button class="recordBtn clearBtn">清除</button>
     </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>喚骸之脂</td><td>撿骨商人</td><td>7</td><td>
+    <button class="recordBtn">當前</button>
+    <button class="recordBtn manualBtn">自選</button>
+    <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
   </tbody>
 </table>
 
@@ -77,7 +82,7 @@ document.getElementById('app').innerHTML = `
       <button class="recordBtn manualBtn">自選</button>
       <button class="recordBtn clearBtn">清除</button>
     </td><td class="recordDate"></td><td class="resetDate"></td></tr>
-    <tr><td>甦醒房間骨頭</td><td>甦醒/重新出發→1F甦醒房間(重新出發必須直接過去不可跳更後面)</td><td>30</td><td>
+    <tr><td>甦醒房間骨頭</td><td>甦醒→1F甦醒房間</td><td>30</td><td>
       <button class="recordBtn">當前</button>
       <button class="recordBtn manualBtn">自選</button>
       <button class="recordBtn clearBtn">清除</button>
