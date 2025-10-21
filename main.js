@@ -56,6 +56,11 @@ document.getElementById('app').innerHTML = `
     <button class="recordBtn manualBtn">自選</button>
     <button class="recordBtn clearBtn">清除</button>
     </td><td class="recordDate"></td><td class="resetDate"></td></tr>
+    <tr><td>喚骸之脂</td><td>靈廟</td><td>7</td><td>
+    <button class="recordBtn">當前</button>
+    <button class="recordBtn manualBtn">自選</button>
+    <button class="recordBtn clearBtn">清除</button>
+    </td><td class="recordDate"></td><td class="resetDate"></td></tr>
     <tr><td>喚骸之脂</td><td>撿骨商人</td><td>7</td><td>
     <button class="recordBtn">當前</button>
     <button class="recordBtn manualBtn">自選</button>
